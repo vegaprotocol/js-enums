@@ -2,11 +2,14 @@ import recast from "recast";
 import parser from "recast/parsers/typescript.js";
 import fs from "node:fs";
 
-const version = "0.76.0";
-
 const run = async () => {
+  const version = process.argv[2];
+  console.log("Regenerating for version:", version);
+  if (!version) {
+    throw new Error("Please provide a version number, e.g. v0.1.0");
+  }
   const res = await fetch(
-    `https://raw.githubusercontent.com/vegaprotocol/documentation/main/specs/v${version}/proto.json`
+    `https://raw.githubusercontent.com/vegaprotocol/documentation/main/specs/${version}/proto.json`
   );
   const json = await res.json();
   const enums = json.files.map(({ enums }) => enums).flat();

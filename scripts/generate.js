@@ -2,7 +2,7 @@ import recast from "recast";
 import parser from "recast/parsers/typescript.js";
 import fs from "node:fs";
 
-const version = "0.74.0";
+const version = "0.76.0";
 
 const run = async () => {
   const res = await fetch(

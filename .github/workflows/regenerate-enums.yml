@@ -2,7 +2,7 @@ name: regenerate-enums-cron
 
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 9-18 * * 1-5"
   workflow_dispatch:
 
 jobs:
@@ -19,7 +19,6 @@ jobs:
       - id: version
         uses: vegaprotocol/github-action-get-vega-version@v0.0.1
         with:
-          include-preview-versions: true
           previous-version: ${{ steps.current-vega-version.outputs.version }}
   regenerate-enums:
     if: needs.check-for-new-version.outputs.new-version == 'true'

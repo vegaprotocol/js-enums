@@ -22,19 +22,23 @@ jobs:
           previous-version: ${{ steps.current-vega-version.outputs.version }}
           include-preview-versions: true
   regenerate-enums:
-    if: needs.check-for-new-version.outputs.new-version == 'true'
     needs: check-for-new-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        if: needs.check-for-new-version.outputs.new-version == 'true'
       - name: Use Node.js LTS
+        if: needs.check-for-new-version.outputs.new-version == 'true'
         uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
           registry-url: "https://registry.npmjs.org"
       - run: npm install
+        if: needs.check-for-new-version.outputs.new-version == 'true'
       - run: node ./scripts/generate.js ${{ needs.check-for-new-version.outputs.current-version }}
+        if: needs.check-for-new-version.outputs.new-version == 'true'
       - uses: stefanzweifel/git-auto-commit-action@v5
+        if: needs.check-for-new-version.outputs.new-version == 'true'
         with:
           commit_message: "chore: update to vega version ${{ needs.check-for-new-version.outputs.current-version }}"
           commit_user_name: vega-ci-bot
@@ -44,8 +48,10 @@ jobs:
           create_branch: true
           branch: chore/update-to-${{ needs.check-for-new-version.outputs.current-version }}
       - name: create pull request
+        if: needs.check-for-new-version.outputs.new-version == 'true'
         run: gh pr create -B main -H chore/update-protos-to-${{ needs.check-for-new-version.outputs.current-version }} --title 'Update protos to version ${{ needs.check-for-new-version.outputs.current-version }}' --body 'Autocreated protos update'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: update version
+        if: needs.check-for-new-version.outputs.new-version == 'true'
         run: echo ${{ needs.check-for-new-version.outputs.current-version }} > ./vega-version.txt

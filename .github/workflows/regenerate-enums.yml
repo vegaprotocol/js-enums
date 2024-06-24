@@ -1,8 +1,6 @@
 name: regenerate-enums-cron
 
 on:
-  schedule:
-    - cron: "0 9-18 * * 1-5"
   workflow_dispatch:
 
 jobs:

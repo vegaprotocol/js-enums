@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "@vegaprotocol/enums",
   "version": "0.0.2",
   "description": "Number and string enums used in VegaProtocol",

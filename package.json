@@ -1,6 +1,6 @@
 {
   "name": "@vegaprotocol/enums",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Number and string enums used in VegaProtocol",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
